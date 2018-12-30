@@ -1,28 +1,43 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React, { useReducer } from 'react';
 import './App.css';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
+const appReducer = (state, action) => {
+  switch (action.type) {
+    case 'add':
+      return [
+        ...state,
+        {
+          id: Date.now(),
+          text: '',
+          complete: false,
+        },
+      ];
+
+    default:
+      break;
   }
-}
+};
+
+const App = () => {
+  const [state, dispatch] = useReducer(appReducer, []);
+
+  return (
+    <div className="App">
+      <header className="App-header">Todos App</header>
+      <button
+        onClick={() =>
+          dispatch({
+            type: 'add',
+          })
+        }
+      >
+        + Add Todo
+      </button>
+      {state.map(item => (
+        <div key={item.id}>{item.id}</div>
+      ))}
+    </div>
+  );
+};
 
 export default App;
