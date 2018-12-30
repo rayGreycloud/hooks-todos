@@ -1,6 +1,5 @@
 import React from 'react';
-
-const TodoItem = ({ id }) => <div key={id}>{id}</div>;
+import TodoItem from './TodoItem';
 
 const TodosList = ({ items }) =>
   items.map(item => <TodoItem key={item.id} {...item} />);
