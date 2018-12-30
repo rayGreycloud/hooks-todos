@@ -1,22 +1,9 @@
 import React, { useReducer } from 'react';
+
+import TodosList from './TodosList';
+import appReducer from './appReducer';
+
 import './App.css';
-
-const appReducer = (state, action) => {
-  switch (action.type) {
-    case 'add':
-      return [
-        ...state,
-        {
-          id: Date.now(),
-          text: '',
-          complete: false,
-        },
-      ];
-
-    default:
-      break;
-  }
-};
 
 const App = () => {
   const [state, dispatch] = useReducer(appReducer, []);
@@ -33,9 +20,7 @@ const App = () => {
       >
         + Add Todo
       </button>
-      {state.map(item => (
-        <div key={item.id}>{item.id}</div>
-      ))}
+      <TodosList items={state} />
     </div>
   );
 };
