@@ -1,5 +1,8 @@
 const appReducer = (state, action) => {
   switch (action.type) {
+    case 'reset':
+      return action.payload;
+
     case 'add':
       return [
         ...state,

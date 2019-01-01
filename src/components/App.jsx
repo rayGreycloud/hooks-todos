@@ -1,4 +1,4 @@
-import React, { createContext, useReducer } from 'react';
+import React, { useEffect, useReducer } from 'react';
 
 import TodosList from './TodosList';
 import appReducer from '../reducers/appReducer';
@@ -8,6 +8,21 @@ import '../styles/App.css';
 
 const App = () => {
   const [state, dispatch] = useReducer(appReducer, []);
+
+  useEffect(() => {
+    const rawData = localStorage.getItem('data');
+    dispatch({
+      type: 'reset',
+      payload: JSON.parse(rawData),
+    });
+  }, []);
+
+  useEffect(
+    () => {
+      localStorage.setItem('data', JSON.stringify(state));
+    },
+    [state],
+  );
 
   return (
     <DispatchContext.Provider value={dispatch}>
