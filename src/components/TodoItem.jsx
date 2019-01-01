@@ -1,5 +1,7 @@
 import React, { useContext } from 'react';
 
+import DispatchContext from '../contexts/DispatchContext';
+
 const itemStyles = {
   display: 'flex',
   flexDirection: 'row',
@@ -9,13 +11,31 @@ const itemStyles = {
 };
 
 const TodoItem = ({ id, completed, text }) => {
-  // const dispatch = useContext(Context);
+  const dispatch = useContext(DispatchContext);
 
   return (
     <div key={id} style={itemStyles}>
-      <input type="checkbox" checked={completed} />
+      <input
+        type="checkbox"
+        checked={completed}
+        onChange={() =>
+          dispatch({
+            type: 'completed',
+            payload: id,
+          })
+        }
+      />
       <input type="text" defaultValue={text} />
-      <button>- Delete</button>
+      <button
+        onClick={() =>
+          dispatch({
+            type: 'delete',
+            payload: id,
+          })
+        }
+      >
+        - Delete
+      </button>
     </div>
   );
 };
